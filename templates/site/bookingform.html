@@ -1,0 +1,95 @@
+{% extends 'site/body.html' %} {% load static %} {% block body %}
+<div style="margin-left: 20rem" class="booking_form">
+  <form
+    method="post"
+    action="{% url 'bookticket' %}"
+    class="tm-search-form tm-section-pad-2"
+  >
+    {% csrf_token %}
+    <div class="form-row tm-search-form-row">
+      <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+        <label for="inputCity">From</label>
+        <input
+          name="from"
+          type="text"
+          class="form-control"
+          value="{{data_from}}"
+          id="inputCity"
+          placeholder="Type your destination..."
+          required
+        />
+      </div>
+      <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+        <label for="inputCity">To</label>
+        <input
+          name="to"
+          type="text"
+          class="form-control"
+          id="inputCity"
+          value="{{data_to}}"
+          placeholder="Type your destination..."
+          required
+        />
+      </div>
+      <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+        <label for="bookingdate">Date</label>
+        <input
+          name="booking_date"
+          type="date"
+          class="form-control"
+          id="inputCity"
+          value="{{data_booking_date}}"
+          placeholder="Type your destination..."
+          required
+        />
+      </div>
+    </div>
+    <!-- form-row -->
+    <div class="form-row tm-search-form-row">
+      <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+        <label for="btnSubmit">&nbsp;</label>
+        <button
+          type="submit"
+          class="btn btn-primary tm-btn tm-btn-search text-uppercase"
+          id="btnSubmit"
+        >
+          Check Availability
+        </button>
+      </div>
+    </div>
+  </form>
+  {% if buslist %}
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Bus Name</th>
+        <th scope="col">Bus-type</th>
+        <th scope="col">Price</th>
+        <th scope="col">Timming</th>
+        <th scope="col">Available Seats</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for bus in buslist %}
+      <tr>
+        <td>{{bus.bus_name}}</td>
+        <td>{{bus.bus_type}}</td>
+        <td>{{bus.price}}</td>
+        <td>{{bus.time}}</td>
+        <td>{{bus.available_seats}}</td>
+        <td>
+          <a
+            href="{% url 'seatbook' bus.id %}"
+            class="btn btn-info btn-sm"
+            >Book Now</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+
+{% endblock body %}

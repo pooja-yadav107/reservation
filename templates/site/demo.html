@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <style type="text/css">
+        #maindiv .col-xl-1{
+            border:1px solid;
+            width: 80px;
+            height: 80px;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Ticket Booking System</h1>
+    <div class="container">
+        Enter Ticket No : <span id="no">1,2,3</span><br/>
+        Ticket Amount : <span id="amount">1000</span>
+    </div>
+    <div class="container">
+        <div class="row" id="maindiv">
+        </div>
+    </div>
+    <div class="container" id="msg"></div>
+    <script type="text/javascript" src="booking.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+var tickets = [
+    {
+        no:1, amount:100
+    },
+    {
+        no:2, amount:200
+    },
+    {
+        no:3, amount:300
+    },
+    {
+        no:4, amount:400
+    },
+    {
+        no:5, amount:500
+    },
+    {
+        no:6, amount:600
+    },
+    {
+        no:7, amount:700
+    },
+    {
+        no:8, amount:800
+    },
+    {
+        no:9, amount:900
+    },
+    {
+        no:10, amount:1000
+    }
+];
+str = ``;
+tickets.forEach(function(value, index){
+    // console.log(value, index)
+    str = str + `<div class='col-xl-1' for='${value.no}#${value.amount}' onclick='myfun(this)'>${value.no} <br/> ${value.amount}</div>`
+
+})
+// console.log(str)
+document.getElementById("maindiv").innerHTML = str;
+
+arr1 = [];
+arr2 = [];
+function myfun(myvar){
+    // console.log(myvar)
+    let ans = myvar.attributes.for.value;
+    // console.log(ans)
+    let ans1 = ans.split('#')
+    let position = arr1.indexOf(ans1[0]);
+
+    if(position == -1){
+        arr1.push(ans1[0]);
+        arr2.push(ans1[1]);
+        msg = "Tickets Added"
+    }
+    else{
+        msg = "Ticket Already Exits"
+    }
+    document.getElementById("msg").innerHTML = msg;
+    final_no = arr1.join(",")
+    document.getElementById("no").innerHTML = final_no;
+
+    final_amount = arr2.join('+');
+    // console.log(final_amount)
+    
+    total_amount = eval(final_amount);
+    // console.log(total_amount)
+    document.getElementById("amount").innerHTML = total_amount;
+    myvar.style.background = "#f00";
+    
+}

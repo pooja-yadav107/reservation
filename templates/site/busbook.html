@@ -1,0 +1,98 @@
+{% extends 'site/body.html' %} {% load static %} {% block body %}
+
+<div style="margin-left: 20rem" class="booking_form">
+    <form
+      method="post"
+      action="{% url 'confirmticket' %}"
+      class="tm-search-form tm-section-pad-2"
+    >
+      {% csrf_token %}
+      <div class="form-row tm-search-form-row">
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity">Name</label>
+          {% for seat in seat_selected %}
+          <input
+            name="name"
+            type="text"
+            class="form-control"
+            value=""
+            id="inputCity"
+            placeholder="Your Name"
+            required
+          />
+          {% endfor %}
+        </div>
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity">Seat No.</label>
+          {% for seat in seat_selected %}
+          <input
+            name="seat_choise"
+            type="text"
+            class="form-control"
+            id="inputCity"
+            value="{{seat.id}}"
+            placeholder="Your Numbers of Seats"
+            hidden
+          />
+          <input
+            type="text"
+            class="form-control"
+            id="inputCity"
+            value="{{seat.seat_no}}"
+            placeholder="Your Numbers of Seats"
+            disabled
+          />
+          {% endfor %}
+        </div>
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity"> Total Seat :- {{seat_selected|length}}</label>
+          
+        </div>
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity"> Bus Name --- {{bus_data.bus_name}}</label>
+          <input
+            type="text"
+            name="bus_id"
+            class="form-control"
+            id="inputCity"
+            value="{{bus_data.id}}"
+            placeholder="Your Numbers of Seats"
+            hidden
+          />
+        </div>
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity"> Travle Date {{bus_data.date}}</label>
+          
+        </div>
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity"> Dreparture Time {{bus_data.time}}</label>
+          
+        </div>
+        
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity"> {{bus_data.destination_from}}  to  {{bus_data.destination_to}}</label>
+          
+        </div>
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="inputCity">Total Price:- {{total_price}}  </label>
+          
+        </div>
+        
+      </div>
+      <!-- form-row -->
+      <div class="form-row tm-search-form-row">
+        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+          <label for="btnSubmit">&nbsp;</label>
+          <button
+            type="submit"
+            class="btn btn-primary tm-btn tm-btn-search text-uppercase"
+            id="btnSubmit"
+          >
+            Confirm Your Ticket Booking
+          </button>
+        </div>
+      </div>
+    </form>
+   
+  </div>
+{% endblock body %}
